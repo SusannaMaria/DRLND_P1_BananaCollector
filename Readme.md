@@ -35,3 +35,7 @@ https://files.pythonhosted.org/packages/fd/70/1a74e80292e1189274586ac1d20445a55c
 ```
     conda install -c pytorch pytorch
 ```
+
+6. Banana Environment
+
+    Download https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Windows_x86_64.zip
