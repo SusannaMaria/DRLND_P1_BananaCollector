@@ -665,6 +665,8 @@ class DQNAgent:
                 if n_episodes % 10 == 0:
                     print(f"episode: {n_episodes} - score: {score}")
                 score = 0
+                if n_episodes >= 100:
+                    break
 
             # if training is ready
             if len(self.memory) >= self.batch_size:
@@ -676,10 +678,7 @@ class DQNAgent:
                 if update_cnt % self.target_update == 0:
                     self._target_hard_update()
 
-            # plotting
-            # if frame_idx % plotting_interval == 0:
-            #     self._plot(frame_idx, scores, losses)
-        
+        self._plot(frame_idx, scores, losses)
         self.env.close()
     
     def save(self, checkpoint_filename):
