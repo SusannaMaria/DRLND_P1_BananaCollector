@@ -629,7 +629,7 @@ class DQNAgent:
 
         return loss.item()
         
-    def train(self, num_frames: int, plotting_interval: int = 200):
+    def train(self, num_frames: int, plotting_interval: int = 200, num_episodes: int = 1000):
         """Train the agent."""
         self.is_test = False
         
@@ -640,10 +640,10 @@ class DQNAgent:
         losses = []
         scores = []
         score = 0
-
-        n_episodes=0
-
-        for frame_idx in range(1, num_frames + 1):
+        frame_idx = 1
+        n_episodes = 1
+        # while(n_episodes < num_episodes+1):
+        for frame_idx in range(1, num_frames + 1):        
             action = self.select_action(state)
             next_state, reward, done = self.step(action)
 
@@ -661,12 +661,10 @@ class DQNAgent:
                 env_info = self.env.reset(train_mode=True)[self.brain_name] # reset the environment
                 state = env_info.vector_observations[0]            # get the current state
                 scores.append(score)
-                n_episodes += 1 
                 if n_episodes % 10 == 0:
-                    print(f"episode: {n_episodes} - score: {score}")
-                score = 0
-                if n_episodes >= 100:
-                    break
+                    print('\rEpisode {}\tFrame: {}\tScore: {}'.format(n_episodes, frame_idx, score))
+                score =0
+                n_episodes += 1 
 
             # if training is ready
             if len(self.memory) >= self.batch_size:
@@ -677,15 +675,20 @@ class DQNAgent:
                 # if hard update is needed
                 if update_cnt % self.target_update == 0:
                     self._target_hard_update()
-
-        self._plot(frame_idx, scores, losses)
+        
+        self._plot(n_episodes, scores, losses)
         self.env.close()
     
     def save(self, checkpoint_filename):
         torch.save(self.dqn.state_dict(), checkpoint_filename)
+        torch.save(self.dqn_target.state_dict(), checkpoint_filename+"target")
 
     def load(self, checkpoint_filename):
-        self.dqn.load_state_dict(torch.load(checkpoint_filename))
+        Q_state_dict = torch.load(checkpoint_filename)
+        target_Q_state_dict = torch.load(checkpoint_filename+"target")
+        self.dqn.load_state_dict(Q_state_dict)
+        self.dqn_target.load_state_dict(target_Q_state_dict)
+
 
     def test(self) -> None:
         """Test the agent."""
@@ -696,13 +699,20 @@ class DQNAgent:
 
         done = False
         score = 0
-        
+        action = agent.act(np.array(state),0)       
+        action = action.astype(int)
+        env_info = env.step(action)[brain_name] 
+        reward = env_info.rewards[0]
+        done = env_info.local_done[0]          
         while not done:
+            env_info = self.env.reset(train_mode=False)[self.brain_name]
+            state = env_info.vector_observations[0]  
             action = self.select_action(state)
             next_state, reward, done = self.step(action)
-
             state = next_state
             score += reward
+
+            print(score,done)
         
         print("score: ", score)
         self.env.close()
@@ -788,20 +798,23 @@ random.seed(seed)
 seed_torch(seed)
 
 # parameters
-num_frames = 20000
+num_frames = 200000
 memory_size = 1000
 batch_size = 32
-target_update = 10
+target_update = 100
 
 env = UnityEnvironment(file_name="/Susanna/udacity/Banana_Windows_x86_64/Banana.exe")
 
 # train
 agent = DQNAgent(env, memory_size, batch_size, target_update)
 
-agent.train(num_frames)
+agent.train(num_frames, num_episodes=100)
+
+agent.test()
 agent.save('checkpoint_rainbow.pth')
 
-trained_agent = DQNAgent(env, memory_size, batch_size, target_update)
+env2 = UnityEnvironment(file_name="/Susanna/udacity/Banana_Windows_x86_64/Banana.exe")
+trained_agent = DQNAgent(env2, memory_size, batch_size, target_update)
 trained_agent.load('checkpoint_rainbow.pth')
-env = UnityEnvironment(file_name="/Susanna/udacity/Banana_Windows_x86_64/Banana.exe")
-agent.test()
+
+trained_agent.test()

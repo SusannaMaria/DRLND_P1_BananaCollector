@@ -93,11 +93,11 @@ def dqn(n_episodes=20000, max_t=1000, eps_start=1, eps_end=0.001, eps_decay=0.99
         print('\rEpisode {}\tAverage Score: {:.2f}'.format(i_episode, np.mean(scores_window)), end="")
         if i_episode % 100 == 0:
             print('\rEpisode {}\tAverage Score: {:.2f}'.format(i_episode, np.mean(scores_window)))
-        if np.mean(scores_window)>=13.0:
-            print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(i_episode-100, np.mean(scores_window)))
-            torch.save(agent.qnetwork_local.state_dict(), 'checkpoint.pth')
-            break
-    
+        if i_episode % 1000 == 0:
+             torch.save(agent.qnetwork_local.state_dict(), 'dqn_checkpoint_{:06d}.pth'.format(i_episode))       
+
+    print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(i_episode-100, np.mean(scores_window)))
+    torch.save(agent.qnetwork_local.state_dict(), 'dqn_checkpoint_final.pth')
     return scores
 
 scores = dqn()
@@ -110,8 +110,26 @@ plt.ylabel('Score')
 plt.xlabel('Episode #')
 plt.show()
 
+def dqn_test():
+    agent = Agent(state_size=state_size, action_size=action_size, seed=0)
+    agent.qnetwork_local.load_state_dict(torch.load('dqn_checkpoint_final.pth'))
 
-# In[ ]:
+    env_info = env.reset(train_mode=False)[brain_name] # reset the environment
+    state = env_info.vector_observations[0]            # get the current state
+    score = 0 
+
+    while (1):
+        env_info = env.reset(train_mode=False)[brain_name]
+        state = env_info.vector_observations[0]      
+        action = agent.act(np.array(state),0)       
+        action = action.astype(int)
+        env_info = env.step(action)[brain_name] 
+        reward = env_info.rewards[0]
+        done = env_info.local_done[0]  
+        score += reward
+        print(score)
+        if done:
+            break
 
 
 
