@@ -100,37 +100,45 @@ def dqn(n_episodes=20000, max_t=1000, eps_start=1, eps_end=0.001, eps_decay=0.99
     torch.save(agent.qnetwork_local.state_dict(), 'dqn_checkpoint_final.pth')
     return scores
 
-scores = dqn()
+#scores = dqn()
 
-# plot the scores
-fig = plt.figure()
-ax = fig.add_subplot(111)
-plt.plot(np.arange(len(scores)), scores)
-plt.ylabel('Score')
-plt.xlabel('Episode #')
-plt.show()
+# # plot the scores
+# fig = plt.figure()
+# ax = fig.add_subplot(111)
+# plt.plot(np.arange(len(scores)), scores)
+# plt.ylabel('Score')
+# plt.xlabel('Episode #')
+# plt.show()
 
+    
 def dqn_test():
-    agent = Agent(state_size=state_size, action_size=action_size, seed=0)
-    agent.qnetwork_local.load_state_dict(torch.load('dqn_checkpoint_final.pth'))
-
     env_info = env.reset(train_mode=False)[brain_name] # reset the environment
     state = env_info.vector_observations[0]            # get the current state
     score = 0 
+    try:
+        while (1):
+            action = agent.act(np.array(state),0)   
+            action = action.astype(int)
 
-    while (1):
-        env_info = env.reset(train_mode=False)[brain_name]
-        state = env_info.vector_observations[0]      
-        action = agent.act(np.array(state),0)       
-        action = action.astype(int)
-        env_info = env.step(action)[brain_name] 
-        reward = env_info.rewards[0]
-        done = env_info.local_done[0]  
-        score += reward
-        print(score)
-        if done:
-            break
+            env_info = env.step(action)[brain_name] 
+            state = env_info.vector_observations[0] 
+            reward = env_info.rewards[0]
+            done = env_info.local_done[0]  
+            score += reward
+            if done:
+                return score
+    except Exception as e:
+        print("exception:",e)
+        return score
 
+agent = Agent(state_size=state_size, action_size=action_size, seed=630)
+agent.qnetwork_local.load_state_dict(torch.load('dqn_checkpoint_001000.pth'))
 
+scores = []
+n_episode_run = 100
+for i in range(0,n_episode_run):
+    score = dqn_test()
+    print(score)
+    scores.append(score)
 
-
+print("Mean score over {} episodes: {}".format(n_episode_run, np.mean(scores)))
