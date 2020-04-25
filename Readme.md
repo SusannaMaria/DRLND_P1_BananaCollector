@@ -66,7 +66,12 @@ https://files.pythonhosted.org/packages/fd/70/1a74e80292e1189274586ac1d20445a55c
     conda install -c pytorch pytorch
 ```
 
-6. Banana Environment
+6. Additional packages
+```
+    pip install pandas git
+```
+
+7. Banana Environment
 
     Download https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Windows_x86_64.zip 
     Unzip in project folder so that ```Banana_Windows_x86_64/Banana.exe```can be found
@@ -74,10 +79,40 @@ https://files.pythonhosted.org/packages/fd/70/1a74e80292e1189274586ac1d20445a55c
 
 # Instructions
 ## Perform Train and testing of DQN Agent via jupyter Notebook
-1. Start of jupyter environment
+1. Start python environment
+    
+    Call Anaconda prompt via Windows Start menu
+
+![](static/anaconda.jpg) 
+
 ```
     cd <project folder>
     conda activate unity_mlagent
+``` 
+2. Clone project
+```
+    git clone https://github.com/SusannaMaria/DRLND_P1_BananaCollector.git
+    cd DRLND_P1_BananaCollector
+```
+2. Start of jupyter environment
+```
     jupyter notebook
 ```
-2.
+
+3. Open DQN_Solution.ipynb and follow the steps
+   
+![](static/jupyter.jpg) 
+
+## Functions
+see [DQN_Solution_functions](DQN_Solution_functions.html) for a complete list of available function in DQN Solution notebook
+
+## Training
+**Example** :Train 200 episodes
+```python
+train_scores = dqn_train(state_size, action_size,200)
+```
+## Evaluation, analytics for Deep Q-Learning agent
+**Example** Analysis with pretrained network on Checkpoint 100 to 200 with 100 stepsize. Perform 10 runs for each checkpoint and show goal in plot.
+```python
+    dqn_analytic_of_scores(state_size, action_size, 100, 200, 100, 10, 13, 333)
+```

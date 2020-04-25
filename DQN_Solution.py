@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 from unityagents import UnityEnvironment
 import os.path
 import numpy as np
@@ -17,36 +14,19 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 from secondcounter import SecondCounter
-get_ipython().run_line_magic('matplotlib', 'inline')
-
-
-# In[2]:
-
 
 env = UnityEnvironment(
     file_name="/Susanna/udacity/Banana_Windows_x86_64/Banana.exe")
 
-
-# In[3]:
-
-
 # get the default brain
 brain_name = env.brain_names[0]
 brain = env.brains[brain_name]
-
-
-# In[4]:
-
 
 # reset the environment
 env_info = env.reset(train_mode=True)[brain_name]
 action_size = brain.vector_action_space_size
 state = env_info.vector_observations[0]
 state_size = len(state)
-
-
-# In[5]:
-
 
 def env_show_info():
     # number of agents in the environment
@@ -56,9 +36,6 @@ def env_show_info():
     # examine the state space
     print('States look like:', state)
     print('States have length:', state_size)    
-
-
-# In[17]:
 
 
 def dqn_train(state_size: int,
@@ -73,6 +50,8 @@ def dqn_train(state_size: int,
 
     Params
     ======
+        state_size (int):   size of state space
+        action_size (int):  action numbers    
         n_episodes (int):   maximum number of training episodes
         max_t (int):        maximum number of timesteps per episode
         eps_start (float):  starting value of epsilon, for epsilon-greedy action selection
@@ -138,9 +117,6 @@ def dqn_train(state_size: int,
     return scores
 
 
-# In[18]:
-
-
 def dqn_test(agent):
     """Deep Q-Learning test function.
 
@@ -177,10 +153,6 @@ def dqn_test(agent):
         print("exception:", e)
         return score
 
-
-# In[28]:
-
-
 def dqn_analytic_of_scores(state_size: int,
                            action_size: int,
                            checkpoint_min: int = 100,
@@ -201,7 +173,7 @@ def dqn_analytic_of_scores(state_size: int,
         n_episode_run (int):    how many episodes for each checkpoints are executed
         goal_score (float):     what score has to be achieved (only used for ploting)
         seed (int):             seed for randomizing the agent
-    """    
+    """
     # initialize DQN Agent
     agent = Agent(state_size=state_size, action_size=action_size, seed=seed)    
     # range of checkpoints
@@ -256,9 +228,6 @@ def dqn_analytic_of_scores(state_size: int,
 
     plot_3dsurface(X, Y, score_array)
     plot_minmax(checkpoints, score_array, checkpoint_min, checkpoint_max, goal_score)
-
-
-# In[23]:
 
 
 def plot_3dsurface(X, Y, score_array):
@@ -322,28 +291,28 @@ def plot_minmax(checkpoints,
 # In[24]:
 
 
-# Test of notebook
-# Train 200 episodes
-train_scores = dqn_train(state_size, action_size,200)
+# # Test of notebook
+# # Train 200 episodes
+# train_scores = dqn_train(state_size, action_size,200)
 
 
-# In[29]:
+# # In[29]:
 
 
-# Analysis until 200 Checkpoint
-dqn_analytic_of_scores(state_size, action_size, 100, 200, 100, 10, 13, 333)
+# # Analysis until 200 Checkpoint
+# dqn_analytic_of_scores(state_size, action_size, 100, 200, 100, 10, 13, 333)
 
 
-# In[ ]:
+# # In[ ]:
 
 
-# Train of DQN for 2100 episodes
-train_scores = dqn_train(state_size, action_size,2100)
+# # Train of DQN for 2100 episodes
+# train_scores = dqn_train(state_size, action_size,2100)
 
 
-# In[ ]:
+# # In[ ]:
 
 
-# Analyse until 2100 Checkpoint
-dqn_analytic_of_scores(state_size, action_size, 100, 2100, 100, 10, 13, 333)
+# # Analyse until 2100 Checkpoint
+# dqn_analytic_of_scores(state_size, action_size, 100, 2100, 100, 10, 13, 333)
 
