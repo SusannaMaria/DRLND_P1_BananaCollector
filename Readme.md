@@ -1,9 +1,39 @@
-# Install Environment
-Installation for Windows10/64 PC -  Dell Inspiron P65F with NVIDIA GPU
+# Udacity-DRL-Bananas-Project
+
+[//]: # (Image References)
+
+[image1]: https://user-images.githubusercontent.com/10624937/42135619-d90f2f28-7d12-11e8-8823-82b970a54d7e.gif "Trained Agent"
+
+# Project 1: Navigation
+
+### Introduction
+
+For this project I used a normal Deep Q-Learning (DQN) algorithm with replay buffer to train an agent to navigate 
+through a field of yellow and pruple bananas.  The goal is to collect the yellow bananas and avoid the purple bananas.
+The environment is a small square world.  
+
+![Trained Agent](static/banana.gif)
+
+A reward of +1 is provided for collecting a yellow banana, and a reward of -1 is provided for collecting a blue banana. Thus, the goal of your agent is to collect as many yellow bananas as possible while avoiding blue bananas.
+
+The state space has 37 dimensions and contains the agent's velocity, along with ray-based perception of objects around the agent's forward direction. Given this information, the agent has to learn how to best select actions. Four discrete actions are available, corresponding to:
+
+- **`0`** - move forward.
+- **`1`** - move backward.
+- **`2`** - turn left.
+- **`3`** - turn right.
+
+The task is episodic, and in order to solve the environment, the agent must get an average score of +13 over 100 consecutive episodes.
+
+# Getting Started
+## My development environment 
+I'm using Windows10/64 on Dell Inspiron P65F Notebook with NVIDIA GPU. The development of the solution took place under Visual Studio Code and the Anaconda Shell. The solution was then transferred to the jupyter notebook "DQN_Solution.ipynb".
+
 | CPU             | GPU |
 :-------------------------:|:-------------------------:
 ![](static/cpu_info.jpg)  |  ![](static/gpu_info.jpg)
 
+## Install Environment
 1. Anaconda
 
 https://repo.anaconda.com/archive/Anaconda3-2020.02-Windows-x86_64.exe
@@ -38,4 +68,16 @@ https://files.pythonhosted.org/packages/fd/70/1a74e80292e1189274586ac1d20445a55c
 
 6. Banana Environment
 
-    Download https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Windows_x86_64.zip
+    Download https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Windows_x86_64.zip 
+    Unzip in project folder so that ```Banana_Windows_x86_64/Banana.exe```can be found
+
+
+# Instructions
+## Perform Train and testing of DQN Agent via jupyter Notebook
+1. Start of jupyter environment
+```
+    cd <project folder>
+    conda activate unity_mlagent
+    jupyter notebook
+```
+2.
