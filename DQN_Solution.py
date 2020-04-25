@@ -16,7 +16,7 @@ from matplotlib.ticker import LinearLocator, FormatStrFormatter
 from secondcounter import SecondCounter
 
 env = UnityEnvironment(
-    file_name="/Susanna/udacity/Banana_Windows_x86_64/Banana.exe")
+    file_name="Banana_Windows_x86_64/Banana.exe")
 
 # get the default brain
 brain_name = env.brain_names[0]
