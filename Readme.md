@@ -104,7 +104,7 @@ https://files.pythonhosted.org/packages/fd/70/1a74e80292e1189274586ac1d20445a55c
 ![](static/jupyter.jpg) 
 
 ## Functions
-see [DQN_Solution_functions](DQN_Solution_functions.html) for a complete list of available function in DQN Solution notebook
+see [DQN_Solution_functions]("html/DQN_Solution_api.html") for a complete list of available function in DQN Solution notebook
 
 ## Training
 **Example** :Train 200 episodes

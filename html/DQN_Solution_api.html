@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc 0.7.2">
+<title>DQN_Solution API documentation</title>
+<meta name="description" content="">
+<link href="DQN_Solution_api-Dateien/normalize.css" rel="stylesheet">
+<link href="DQN_Solution_api-Dateien/sanitize.css" rel="stylesheet">
+<link href="DQN_Solution_api-Dateien/github.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>DQN_Solution</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python hljs"><span class="hljs-comment"><span class="hljs-comment">#!/usr/bin/env python</span></span>
+<span class="hljs-comment"><span class="hljs-comment"># coding: utf-8</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment"># In[1]:</span></span>
+
+
+<span class="hljs-keyword"><span class="hljs-keyword">from</span></span> unityagents <span class="hljs-keyword"><span class="hljs-keyword">import</span></span> UnityEnvironment
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> os.path
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> numpy <span class="hljs-keyword"><span class="hljs-keyword">as</span></span> np
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> pandas <span class="hljs-keyword"><span class="hljs-keyword">as</span></span> pd
+<span class="hljs-keyword"><span class="hljs-keyword">from</span></span> collections <span class="hljs-keyword"><span class="hljs-keyword">import</span></span> deque
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> torch
+<span class="hljs-keyword"><span class="hljs-keyword">from</span></span> dqn_agent <span class="hljs-keyword"><span class="hljs-keyword">import</span></span> Agent
+<span class="hljs-keyword"><span class="hljs-keyword">from</span></span> classes.utils <span class="hljs-keyword"><span class="hljs-keyword">import</span></span> helper
+<span class="hljs-keyword"><span class="hljs-keyword">from</span></span> mpl_toolkits.mplot3d <span class="hljs-keyword"><span class="hljs-keyword">import</span></span> Axes3D  <span class="hljs-comment"><span class="hljs-comment"># noqa: F401 unused import</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> matplotlib.pyplot <span class="hljs-keyword"><span class="hljs-keyword">as</span></span> plt
+<span class="hljs-keyword"><span class="hljs-keyword">from</span></span> matplotlib <span class="hljs-keyword"><span class="hljs-keyword">import</span></span> cm
+<span class="hljs-keyword"><span class="hljs-keyword">from</span></span> matplotlib.ticker <span class="hljs-keyword"><span class="hljs-keyword">import</span></span> LinearLocator, FormatStrFormatter
+<span class="hljs-keyword"><span class="hljs-keyword">from</span></span> secondcounter <span class="hljs-keyword"><span class="hljs-keyword">import</span></span> SecondCounter
+
+<span class="hljs-comment"><span class="hljs-comment"># In[2]:</span></span>
+
+
+env = UnityEnvironment(
+    file_name=<span class="hljs-string"><span class="hljs-string">"/Susanna/udacity/Banana_Windows_x86_64/Banana.exe"</span></span>)
+
+
+<span class="hljs-comment"><span class="hljs-comment"># In[3]:</span></span>
+
+
+<span class="hljs-comment"><span class="hljs-comment"># get the default brain</span></span>
+brain_name = env.brain_names[<span class="hljs-number"><span class="hljs-number">0</span></span>]
+brain = env.brains[brain_name]
+
+
+<span class="hljs-comment"><span class="hljs-comment"># In[4]:</span></span>
+
+
+<span class="hljs-comment"><span class="hljs-comment"># reset the environment</span></span>
+env_info = env.reset(train_mode=<span class="hljs-keyword"><span class="hljs-keyword">True</span></span>)[brain_name]
+action_size = brain.vector_action_space_size
+state = env_info.vector_observations[<span class="hljs-number"><span class="hljs-number">0</span></span>]
+state_size = len(state)
+
+
+<span class="hljs-comment"><span class="hljs-comment"># In[5]:</span></span>
+
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">def</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">env_show_info</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function">:</span></span>
+    <span class="hljs-comment"><span class="hljs-comment"># number of agents in the environment</span></span>
+    print(<span class="hljs-string"><span class="hljs-string">'Number of agents:'</span></span>, len(env_info.agents))
+    <span class="hljs-comment"><span class="hljs-comment"># number of actions</span></span>
+    print(<span class="hljs-string"><span class="hljs-string">'Number of actions:'</span></span>, action_size)
+    <span class="hljs-comment"><span class="hljs-comment"># examine the state space</span></span>
+    print(<span class="hljs-string"><span class="hljs-string">'States look like:'</span></span>, state)
+    print(<span class="hljs-string"><span class="hljs-string">'States have length:'</span></span>, state_size)    
+
+
+<span class="hljs-comment"><span class="hljs-comment"># In[17]:</span></span>
+
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">def</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">dqn_train</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(state_size: int,
+              action_size: int,
+              n_episodes: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">2000</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+              max_t: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">400</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+              eps_start: float = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">1.0</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+              eps_end: float = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">0.001</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+              eps_decay: float = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">0.995</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+              seed: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">0</span></span></span></span><span class="hljs-function"><span class="hljs-params">)</span></span></span><span class="hljs-function">:</span></span>
+    <span class="hljs-string"><span class="hljs-string">"""Deep Q-Learning train function.
+
+    Params
+    ======
+        n_episodes (int):   maximum number of training episodes
+        max_t (int):        maximum number of timesteps per episode
+        eps_start (float):  starting value of epsilon, for epsilon-greedy action selection
+        eps_end (float):    minimum value of epsilon
+        eps_decay (float):  multiplicative factor (per episode) for decreasing epsilon
+    """</span></span>
+    agent = Agent(state_size=state_size, action_size=action_size, seed=<span class="hljs-number"><span class="hljs-number">0</span></span>)
+    <span class="hljs-comment"><span class="hljs-comment"># list containing scores from each episode</span></span>
+    scores = []                                                                 
+    <span class="hljs-comment"><span class="hljs-comment"># last 100 scores</span></span>
+    scores_window = deque(maxlen=<span class="hljs-number"><span class="hljs-number">10</span></span>)                                           
+    <span class="hljs-comment"><span class="hljs-comment"># initialize epsilon</span></span>
+    eps = eps_start
+    
+    <span class="hljs-comment"><span class="hljs-comment"># create the counter instance</span></span>
+    count = SecondCounter()
+    count.start()
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> i_episode <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> range(<span class="hljs-number"><span class="hljs-number">1</span></span>, n_episodes+<span class="hljs-number"><span class="hljs-number">1</span></span>):
+        <span class="hljs-comment"><span class="hljs-comment"># reset the environment</span></span>
+        env_info = env.reset(train_mode=<span class="hljs-keyword"><span class="hljs-keyword">True</span></span>)[brain_name]                       
+        <span class="hljs-comment"><span class="hljs-comment"># get the current state</span></span>
+        state = env_info.vector_observations[<span class="hljs-number"><span class="hljs-number">0</span></span>]                                 
+        <span class="hljs-comment"><span class="hljs-comment"># initialize score            </span></span>
+        score = <span class="hljs-number"><span class="hljs-number">0</span></span>                                                               
+        <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> t <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> range(max_t):
+            <span class="hljs-comment"><span class="hljs-comment"># select an action</span></span>
+            action = agent.act(np.array(state),eps)                             
+            <span class="hljs-comment"><span class="hljs-comment"># cast action to int</span></span>
+            action = action.astype(int)
+            <span class="hljs-comment"><span class="hljs-comment"># send the action to the environment</span></span>
+            env_info = env.step(action)[brain_name]                             
+            <span class="hljs-comment"><span class="hljs-comment"># get the next state</span></span>
+            next_state = env_info.vector_observations[<span class="hljs-number"><span class="hljs-number">0</span></span>]                        
+            <span class="hljs-comment"><span class="hljs-comment"># get the reward</span></span>
+            reward = env_info.rewards[<span class="hljs-number"><span class="hljs-number">0</span></span>]                                        
+            <span class="hljs-comment"><span class="hljs-comment"># see if episode has finished</span></span>
+            done = env_info.local_done[<span class="hljs-number"><span class="hljs-number">0</span></span>]                                       
+            <span class="hljs-comment"><span class="hljs-comment"># send update step to agent</span></span>
+            agent.step(state,action,reward,next_state,done)                     
+            <span class="hljs-comment"><span class="hljs-comment"># update the score</span></span>
+            score += reward                                                     
+            <span class="hljs-comment"><span class="hljs-comment"># roll over the state to next time step</span></span>
+            state = next_state                                                  
+            <span class="hljs-comment"><span class="hljs-comment"># exit loop if episode finished</span></span>
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> done:                                                            
+                <span class="hljs-keyword"><span class="hljs-keyword">break</span></span>            
+            
+        <span class="hljs-comment"><span class="hljs-comment"># save score for 100 most recent scores</span></span>
+        scores_window.append(score)                                             
+        <span class="hljs-comment"><span class="hljs-comment"># save score for episodes</span></span>
+        scores.append(score)                                                    
+        eps = max(eps_end, eps_decay*eps) <span class="hljs-comment"><span class="hljs-comment"># decrease epsilon</span></span>
+        <span class="hljs-comment"><span class="hljs-comment"># print score every 10 episodes</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> i_episode % <span class="hljs-number"><span class="hljs-number">10</span></span>== <span class="hljs-number"><span class="hljs-number">0</span></span>:                                                  
+            print(<span class="hljs-string"><span class="hljs-string">'\rEpisode {}\tAverage Score of last 10 episodes: {:.2f}'</span></span>.format(i_episode, np.mean(scores_window)), end = <span class="hljs-string"><span class="hljs-string">''</span></span>)
+        <span class="hljs-comment"><span class="hljs-comment"># save network every 100 episodes</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> i_episode % <span class="hljs-number"><span class="hljs-number">100</span></span> == <span class="hljs-number"><span class="hljs-number">0</span></span>:                                                
+             torch.save(agent.qnetwork_local.state_dict(), <span class="hljs-string"><span class="hljs-string">'dqn_checkpoints/dqn_checkpoint_{:06d}.pth'</span></span>.format(i_episode))       
+    
+    seconds = count.finish()
+    print(<span class="hljs-string"><span class="hljs-string">'\nTraining finished with {} episodes in {:.2f} seconds'</span></span>.format(n_episodes, seconds))
+    torch.save(agent.qnetwork_local.state_dict(), <span class="hljs-string"><span class="hljs-string">'dqn_checkpoints/dqn_checkpoint_{:06d}.pth'</span></span>.format(n_episodes))
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> scores
+
+
+<span class="hljs-comment"><span class="hljs-comment"># In[18]:</span></span>
+
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">def</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">dqn_test</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(agent)</span></span></span><span class="hljs-function">:</span></span>
+    <span class="hljs-string"><span class="hljs-string">"""Deep Q-Learning test function.
+
+    Params
+    ======
+        agent:   DQN Agent with loaded network for testing
+    """</span></span>    
+    <span class="hljs-comment"><span class="hljs-comment"># reset the environment</span></span>
+    env_info = env.reset(train_mode=<span class="hljs-keyword"><span class="hljs-keyword">True</span></span>)[brain_name]                            
+    <span class="hljs-comment"><span class="hljs-comment"># get the current state</span></span>
+    state = env_info.vector_observations[<span class="hljs-number"><span class="hljs-number">0</span></span>]                                      
+    <span class="hljs-comment"><span class="hljs-comment"># initialize score</span></span>
+    score = <span class="hljs-number"><span class="hljs-number">0</span></span>                                                                     
+    <span class="hljs-keyword"><span class="hljs-keyword">try</span></span>:
+        <span class="hljs-comment"><span class="hljs-comment"># run until done</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">while</span></span> (<span class="hljs-number"><span class="hljs-number">1</span></span>):                                                               
+            <span class="hljs-comment"><span class="hljs-comment"># select an action</span></span>
+            action = agent.act(np.array(state), <span class="hljs-number"><span class="hljs-number">0</span></span>)                               
+            <span class="hljs-comment"><span class="hljs-comment"># cast action to int</span></span>
+            action = action.astype(int)
+            <span class="hljs-comment"><span class="hljs-comment"># send the action to the environment</span></span>
+            env_info = env.step(action)[brain_name]
+            <span class="hljs-comment"><span class="hljs-comment"># get the next state</span></span>
+            state = env_info.vector_observations[<span class="hljs-number"><span class="hljs-number">0</span></span>] 
+            <span class="hljs-comment"><span class="hljs-comment"># get the reward</span></span>
+            reward = env_info.rewards[<span class="hljs-number"><span class="hljs-number">0</span></span>]   
+            <span class="hljs-comment"><span class="hljs-comment"># see if episode has finished</span></span>
+            done = env_info.local_done[<span class="hljs-number"><span class="hljs-number">0</span></span>]
+            <span class="hljs-comment"><span class="hljs-comment"># update the score</span></span>
+            score += reward                                                      
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> done:
+                <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> score
+    <span class="hljs-keyword"><span class="hljs-keyword">except</span></span> Exception <span class="hljs-keyword"><span class="hljs-keyword">as</span></span> e:
+        print(<span class="hljs-string"><span class="hljs-string">"exception:"</span></span>, e)
+        <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> score
+
+
+<span class="hljs-comment"><span class="hljs-comment"># In[28]:</span></span>
+
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">def</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">dqn_analytic_of_scores</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(state_size: int,
+                           action_size: int,
+                           checkpoint_min: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">100</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+                           checkpoint_max: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">2100</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+                           checkpoint_step: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">100</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+                           n_episode_run: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">100</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+                           goal_score: float = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">13.0</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+                           seed: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">0</span></span></span></span><span class="hljs-function"><span class="hljs-params">)</span></span></span><span class="hljs-function">:</span></span>
+    <span class="hljs-string"><span class="hljs-string">"""Analytic for Deep Q-Learning agent.
+
+    Params
+    ======
+        state_size (int):       size of state space
+        action_size (int):      action numbers
+        checkpoint_min (int):   start of checkpoint for analytics
+        checkpoint_max (int):   end of checkpoint for analytics
+        checkpoint_step (int):  steps between checkpoint        
+        n_episode_run (int):    how many episodes for each checkpoints are executed
+        goal_score (float):     what score has to be achieved (only used for ploting)
+        seed (int):             seed for randomizing the agent
+    """</span></span>    
+    <span class="hljs-comment"><span class="hljs-comment"># initialize DQN Agent</span></span>
+    agent = Agent(state_size=state_size, action_size=action_size, seed=seed)    
+    <span class="hljs-comment"><span class="hljs-comment"># range of checkpoints</span></span>
+    checkpoints = np.arange(checkpoint_min, 
+                            checkpoint_max+checkpoint_step,
+                            checkpoint_step)                                    
+    <span class="hljs-comment"><span class="hljs-comment"># define X-Axis </span></span>
+    X = np.arange(<span class="hljs-number"><span class="hljs-number">0</span></span>, n_episode_run, <span class="hljs-number"><span class="hljs-number">1</span></span>)
+    <span class="hljs-comment"><span class="hljs-comment"># create mesh grid for 3d plot</span></span>
+    X, Y = np.meshgrid(X, checkpoints)
+    <span class="hljs-comment"><span class="hljs-comment"># create 2D-array for scores</span></span>
+    score_array = np.zeros(X.shape)                                             
+
+    n_checkpoint_count = <span class="hljs-number"><span class="hljs-number">0</span></span>
+
+    <span class="hljs-comment"><span class="hljs-comment"># create the counter instance</span></span>
+    count = SecondCounter()
+    count.start()
+    
+    print(<span class="hljs-string"><span class="hljs-string">"Starting analysing of dqn network"</span></span>)
+    
+    <span class="hljs-comment"><span class="hljs-comment"># iterate over checkpoints</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> n_checkpoint <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> checkpoints:                                            
+        checkpoint_file = <span class="hljs-string"><span class="hljs-string">'dqn_checkpoints/dqn_checkpoint_{:06d}.pth'</span></span>.format(n_checkpoint)
+        <span class="hljs-comment"><span class="hljs-comment"># is pretrained model for checkpoint available ?</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> <span class="hljs-keyword"><span class="hljs-keyword">not</span></span> os.path.isfile(checkpoint_file):                             
+            print(<span class="hljs-string"><span class="hljs-string">"Checkpoint file not found: {}"</span></span>.format(checkpoint_file))
+            <span class="hljs-keyword"><span class="hljs-keyword">continue</span></span>
+        <span class="hljs-comment"><span class="hljs-comment"># load pretrained model</span></span>
+        agent.qnetwork_local.load_state_dict(torch.load(checkpoint_file))       
+        
+        <span class="hljs-comment"><span class="hljs-comment"># prepare scores array for all episodes</span></span>
+        scores = np.arange(<span class="hljs-number"><span class="hljs-number">0</span></span>, n_episode_run, <span class="hljs-number"><span class="hljs-number">1</span></span>)                                 
+        <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> n_episode <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> range(<span class="hljs-number"><span class="hljs-number">0</span></span>, n_episode_run):
+            <span class="hljs-comment"><span class="hljs-comment"># test agent for one episode</span></span>
+            score = dqn_test(agent)
+            <span class="hljs-comment"><span class="hljs-comment"># store result in array</span></span>
+            scores[n_episode] = score                                           
+        
+        <span class="hljs-comment"><span class="hljs-comment"># sort array in descending order</span></span>
+        scores = np.sort(scores)[::<span class="hljs-number"><span class="hljs-number">-1</span></span>]                                          
+        <span class="hljs-comment"><span class="hljs-comment"># maybe it's allowed to remove the best and worst 2 elements</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> n_episode <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> range(<span class="hljs-number"><span class="hljs-number">0</span></span>, n_episode_run):
+            score_array[n_checkpoint_count][n_episode] = scores[n_episode]      <span class="hljs-comment"><span class="hljs-comment"># Update 2D-array </span></span>
+
+        n_checkpoint_count += <span class="hljs-number"><span class="hljs-number">1</span></span>
+        print(<span class="hljs-string"><span class="hljs-string">"Checkpoint: {} - mean score over {} episodes: {}"</span></span>.format(
+            n_checkpoint, n_episode_run, np.mean(scores)))
+    
+    seconds = count.finish()
+    print(<span class="hljs-string"><span class="hljs-string">'Analytics finished with {} episodes in {:.2f} seconds'</span></span>.format(n_episode_run, seconds))
+
+    plot_3dsurface(X, Y, score_array)
+    plot_minmax(checkpoints, score_array, checkpoint_min, checkpoint_max, goal_score)
+
+
+<span class="hljs-comment"><span class="hljs-comment"># In[23]:</span></span>
+
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">def</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">plot_3dsurface</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(X, Y, score_array)</span></span></span><span class="hljs-function">:</span></span>
+    <span class="hljs-string"><span class="hljs-string">"""Print 3D surface plot of DQN Agent analytics
+
+    Params
+    ======
+        X (np.array):           Meshgrid X Axis
+        Y (np.array):           Meshgrid X Axis
+        score_array (np.array)  scores of all episodes of all checkpoints
+    """</span></span>     
+    fig = plt.figure()
+    ax = fig.gca(projection=<span class="hljs-string"><span class="hljs-string">'3d'</span></span>)
+    <span class="hljs-comment"><span class="hljs-comment"># Plot the surface.</span></span>
+    surf = ax.plot_surface(X, Y, score_array, cmap=cm.coolwarm,
+                           linewidth=<span class="hljs-number"><span class="hljs-number">0</span></span>, antialiased=<span class="hljs-keyword"><span class="hljs-keyword">False</span></span>)
+
+    <span class="hljs-comment"><span class="hljs-comment"># Customize the z axis.</span></span>
+    ax.set_zlim(<span class="hljs-number"><span class="hljs-number">-2</span></span>, <span class="hljs-number"><span class="hljs-number">22</span></span>)
+    ax.zaxis.set_major_locator(LinearLocator(<span class="hljs-number"><span class="hljs-number">10</span></span>))
+    ax.zaxis.set_major_formatter(FormatStrFormatter(<span class="hljs-string"><span class="hljs-string">'%.02f'</span></span>))
+
+    <span class="hljs-comment"><span class="hljs-comment"># Add a color bar which maps values to colors.</span></span>
+    fig.colorbar(surf, shrink=<span class="hljs-number"><span class="hljs-number">0.5</span></span>, aspect=<span class="hljs-number"><span class="hljs-number">5</span></span>)
+
+    plt.show()
+
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">def</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">plot_minmax</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(checkpoints, 
+                score_array, 
+                checkpoint_min: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">100</span></span></span></span><span class="hljs-function"><span class="hljs-params">, 
+                checkpoint_max: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">2100</span></span></span></span><span class="hljs-function"><span class="hljs-params">, 
+                goal_score: float = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">13</span></span></span></span><span class="hljs-function"><span class="hljs-params">)</span></span></span><span class="hljs-function">:</span></span>
+    <span class="hljs-string"><span class="hljs-string">"""Print min max plot of DQN Agent analytics
+
+    Params
+    ======
+        checkpoints (np.array):           Array of checkpoints
+        checkpoint_min (int):             Minimum Checkpoint for plot
+        checkpoint_max (int):             Maximum Checkpoint for plot
+        goal_score (float):               Goal of score for DQN Agent
+    """</span></span>   
+    
+    df = pd.DataFrame(columns=[<span class="hljs-string"><span class="hljs-string">'checkpoint'</span></span>, <span class="hljs-string"><span class="hljs-string">'min'</span></span>, <span class="hljs-string"><span class="hljs-string">'max'</span></span>, <span class="hljs-string"><span class="hljs-string">'mean'</span></span>])
+
+    row = <span class="hljs-number"><span class="hljs-number">0</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> i <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> checkpoints:
+        <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> j <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> score_array[row]:
+            df.loc[row] = [i] + list([np.min(score_array[row]),
+                                                       np.max(score_array[row]),
+                                                       np.mean(score_array[row])])
+        row += <span class="hljs-number"><span class="hljs-number">1</span></span>
+    ax  = df.plot(x=<span class="hljs-string"><span class="hljs-string">'checkpoint'</span></span>, y=<span class="hljs-string"><span class="hljs-string">'mean'</span></span>, c=<span class="hljs-string"><span class="hljs-string">'white'</span></span>)
+    plt.fill_between(x=<span class="hljs-string"><span class="hljs-string">'checkpoint'</span></span>,y1=<span class="hljs-string"><span class="hljs-string">'min'</span></span>,y2=<span class="hljs-string"><span class="hljs-string">'max'</span></span>, data=df)
+    x_coordinates = [checkpoint_min, checkpoint_max]
+    y_coordinates = [<span class="hljs-number"><span class="hljs-number">13</span></span>, <span class="hljs-number"><span class="hljs-number">13</span></span>]
+    plt.plot(x_coordinates, y_coordinates, color=<span class="hljs-string"><span class="hljs-string">'red'</span></span>)    
+    plt.show()
+
+
+<span class="hljs-comment"><span class="hljs-comment"># In[24]:</span></span>
+
+
+<span class="hljs-comment"><span class="hljs-comment"># # Test of notebook</span></span>
+<span class="hljs-comment"><span class="hljs-comment"># # Train 200 episodes</span></span>
+<span class="hljs-comment"><span class="hljs-comment"># train_scores = dqn_train(state_size, action_size,200)</span></span>
+
+
+<span class="hljs-comment"><span class="hljs-comment"># # In[29]:</span></span>
+
+
+<span class="hljs-comment"><span class="hljs-comment"># # Analysis until 200 Checkpoint</span></span>
+<span class="hljs-comment"><span class="hljs-comment"># dqn_analytic_of_scores(state_size, action_size, 100, 200, 100, 10, 13, 333)</span></span>
+
+
+<span class="hljs-comment"><span class="hljs-comment"># # In[ ]:</span></span>
+
+
+<span class="hljs-comment"><span class="hljs-comment"># # Train of DQN for 2100 episodes</span></span>
+<span class="hljs-comment"><span class="hljs-comment"># train_scores = dqn_train(state_size, action_size,2100)</span></span>
+
+
+<span class="hljs-comment"><span class="hljs-comment"># # In[ ]:</span></span>
+
+
+<span class="hljs-comment"><span class="hljs-comment"># # Analyse until 2100 Checkpoint</span></span>
+<span class="hljs-comment"><span class="hljs-comment"># dqn_analytic_of_scores(state_size, action_size, 100, 2100, 100, 10, 13, 333)</span></span></code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="DQN_Solution.dqn_analytic_of_scores"><code class="name flex">
+<span>def <span class="ident">dqn_analytic_of_scores</span></span>(<span>state_size,
+ action_size, checkpoint_min=100, checkpoint_max=2100, 
+checkpoint_step=100, n_episode_run=100, goal_score=13.0, seed=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Analytic for Deep Q-Learning agent.</p>
+<h1 id="params">Params</h1>
+<pre><code class="hljs sql">state_size (int):       size of state space
+action_size (int):      action numbers
+checkpoint_min (int):   <span class="hljs-keyword"><span class="hljs-keyword">start</span></span> <span class="hljs-keyword"><span class="hljs-keyword">of</span></span> checkpoint <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> analytics
+checkpoint_max (<span class="hljs-built_in"><span class="hljs-built_in">int</span></span>):   <span class="hljs-keyword"><span class="hljs-keyword">end</span></span> <span class="hljs-keyword"><span class="hljs-keyword">of</span></span> checkpoint <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> analytics
+checkpoint_step (<span class="hljs-built_in"><span class="hljs-built_in">int</span></span>):  steps <span class="hljs-keyword"><span class="hljs-keyword">between</span></span> checkpoint        
+n_episode_run (<span class="hljs-built_in"><span class="hljs-built_in">int</span></span>):    how many episodes <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> <span class="hljs-keyword"><span class="hljs-keyword">each</span></span> checkpoints <span class="hljs-keyword"><span class="hljs-keyword">are</span></span> executed
+goal_score (<span class="hljs-built_in"><span class="hljs-built_in">float</span></span>):     what score has <span class="hljs-keyword"><span class="hljs-keyword">to</span></span> be achieved (<span class="hljs-keyword"><span class="hljs-keyword">only</span></span> used <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> ploting)
+<span class="hljs-keyword"><span class="hljs-keyword">seed</span></span> (<span class="hljs-built_in"><span class="hljs-built_in">int</span></span>):             <span class="hljs-keyword"><span class="hljs-keyword">seed</span></span> <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> randomizing the <span class="hljs-keyword"><span class="hljs-keyword">agent</span></span>
+</code></pre></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python hljs"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">def</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">dqn_analytic_of_scores</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(state_size: int,
+                           action_size: int,
+                           checkpoint_min: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">100</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+                           checkpoint_max: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">2100</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+                           checkpoint_step: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">100</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+                           n_episode_run: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">100</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+                           goal_score: float = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">13.0</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+                           seed: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">0</span></span></span></span><span class="hljs-function"><span class="hljs-params">)</span></span></span><span class="hljs-function">:</span></span>
+    <span class="hljs-string"><span class="hljs-string">"""Analytic for Deep Q-Learning agent.
+
+    Params
+    ======
+        state_size (int):       size of state space
+        action_size (int):      action numbers
+        checkpoint_min (int):   start of checkpoint for analytics
+        checkpoint_max (int):   end of checkpoint for analytics
+        checkpoint_step (int):  steps between checkpoint        
+        n_episode_run (int):    how many episodes for each checkpoints are executed
+        goal_score (float):     what score has to be achieved (only used for ploting)
+        seed (int):             seed for randomizing the agent
+    """</span></span>    
+    <span class="hljs-comment"><span class="hljs-comment"># initialize DQN Agent</span></span>
+    agent = Agent(state_size=state_size, action_size=action_size, seed=seed)    
+    <span class="hljs-comment"><span class="hljs-comment"># range of checkpoints</span></span>
+    checkpoints = np.arange(checkpoint_min, 
+                            checkpoint_max+checkpoint_step,
+                            checkpoint_step)                                    
+    <span class="hljs-comment"><span class="hljs-comment"># define X-Axis </span></span>
+    X = np.arange(<span class="hljs-number"><span class="hljs-number">0</span></span>, n_episode_run, <span class="hljs-number"><span class="hljs-number">1</span></span>)
+    <span class="hljs-comment"><span class="hljs-comment"># create mesh grid for 3d plot</span></span>
+    X, Y = np.meshgrid(X, checkpoints)
+    <span class="hljs-comment"><span class="hljs-comment"># create 2D-array for scores</span></span>
+    score_array = np.zeros(X.shape)                                             
+
+    n_checkpoint_count = <span class="hljs-number"><span class="hljs-number">0</span></span>
+
+    <span class="hljs-comment"><span class="hljs-comment"># create the counter instance</span></span>
+    count = SecondCounter()
+    count.start()
+    
+    print(<span class="hljs-string"><span class="hljs-string">"Starting analysing of dqn network"</span></span>)
+    
+    <span class="hljs-comment"><span class="hljs-comment"># iterate over checkpoints</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> n_checkpoint <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> checkpoints:                                            
+        checkpoint_file = <span class="hljs-string"><span class="hljs-string">'dqn_checkpoints/dqn_checkpoint_{:06d}.pth'</span></span>.format(n_checkpoint)
+        <span class="hljs-comment"><span class="hljs-comment"># is pretrained model for checkpoint available ?</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> <span class="hljs-keyword"><span class="hljs-keyword">not</span></span> os.path.isfile(checkpoint_file):                             
+            print(<span class="hljs-string"><span class="hljs-string">"Checkpoint file not found: {}"</span></span>.format(checkpoint_file))
+            <span class="hljs-keyword"><span class="hljs-keyword">continue</span></span>
+        <span class="hljs-comment"><span class="hljs-comment"># load pretrained model</span></span>
+        agent.qnetwork_local.load_state_dict(torch.load(checkpoint_file))       
+        
+        <span class="hljs-comment"><span class="hljs-comment"># prepare scores array for all episodes</span></span>
+        scores = np.arange(<span class="hljs-number"><span class="hljs-number">0</span></span>, n_episode_run, <span class="hljs-number"><span class="hljs-number">1</span></span>)                                 
+        <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> n_episode <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> range(<span class="hljs-number"><span class="hljs-number">0</span></span>, n_episode_run):
+            <span class="hljs-comment"><span class="hljs-comment"># test agent for one episode</span></span>
+            score = dqn_test(agent)
+            <span class="hljs-comment"><span class="hljs-comment"># store result in array</span></span>
+            scores[n_episode] = score                                           
+        
+        <span class="hljs-comment"><span class="hljs-comment"># sort array in descending order</span></span>
+        scores = np.sort(scores)[::<span class="hljs-number"><span class="hljs-number">-1</span></span>]                                          
+        <span class="hljs-comment"><span class="hljs-comment"># maybe it's allowed to remove the best and worst 2 elements</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> n_episode <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> range(<span class="hljs-number"><span class="hljs-number">0</span></span>, n_episode_run):
+            score_array[n_checkpoint_count][n_episode] = scores[n_episode]      <span class="hljs-comment"><span class="hljs-comment"># Update 2D-array </span></span>
+
+        n_checkpoint_count += <span class="hljs-number"><span class="hljs-number">1</span></span>
+        print(<span class="hljs-string"><span class="hljs-string">"Checkpoint: {} - mean score over {} episodes: {}"</span></span>.format(
+            n_checkpoint, n_episode_run, np.mean(scores)))
+    
+    seconds = count.finish()
+    print(<span class="hljs-string"><span class="hljs-string">'Analytics finished with {} episodes in {:.2f} seconds'</span></span>.format(n_episode_run, seconds))
+
+    plot_3dsurface(X, Y, score_array)
+    plot_minmax(checkpoints, score_array, checkpoint_min, checkpoint_max, goal_score)</code></pre>
+</details>
+</dd>
+<dt id="DQN_Solution.dqn_test"><code class="name flex">
+<span>def <span class="ident">dqn_test</span></span>(<span>agent)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Deep Q-Learning test function.</p>
+<h1 id="params">Params</h1>
+<pre><code class="hljs javascript">agent:   DQN Agent <span class="hljs-keyword"><span class="hljs-keyword">with</span></span> loaded network <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> testing
+</code></pre></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python hljs"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">def</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">dqn_test</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(agent)</span></span></span><span class="hljs-function">:</span></span>
+    <span class="hljs-string"><span class="hljs-string">"""Deep Q-Learning test function.
+
+    Params
+    ======
+        agent:   DQN Agent with loaded network for testing
+    """</span></span>    
+    <span class="hljs-comment"><span class="hljs-comment"># reset the environment</span></span>
+    env_info = env.reset(train_mode=<span class="hljs-keyword"><span class="hljs-keyword">True</span></span>)[brain_name]                            
+    <span class="hljs-comment"><span class="hljs-comment"># get the current state</span></span>
+    state = env_info.vector_observations[<span class="hljs-number"><span class="hljs-number">0</span></span>]                                      
+    <span class="hljs-comment"><span class="hljs-comment"># initialize score</span></span>
+    score = <span class="hljs-number"><span class="hljs-number">0</span></span>                                                                     
+    <span class="hljs-keyword"><span class="hljs-keyword">try</span></span>:
+        <span class="hljs-comment"><span class="hljs-comment"># run until done</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">while</span></span> (<span class="hljs-number"><span class="hljs-number">1</span></span>):                                                               
+            <span class="hljs-comment"><span class="hljs-comment"># select an action</span></span>
+            action = agent.act(np.array(state), <span class="hljs-number"><span class="hljs-number">0</span></span>)                               
+            <span class="hljs-comment"><span class="hljs-comment"># cast action to int</span></span>
+            action = action.astype(int)
+            <span class="hljs-comment"><span class="hljs-comment"># send the action to the environment</span></span>
+            env_info = env.step(action)[brain_name]
+            <span class="hljs-comment"><span class="hljs-comment"># get the next state</span></span>
+            state = env_info.vector_observations[<span class="hljs-number"><span class="hljs-number">0</span></span>] 
+            <span class="hljs-comment"><span class="hljs-comment"># get the reward</span></span>
+            reward = env_info.rewards[<span class="hljs-number"><span class="hljs-number">0</span></span>]   
+            <span class="hljs-comment"><span class="hljs-comment"># see if episode has finished</span></span>
+            done = env_info.local_done[<span class="hljs-number"><span class="hljs-number">0</span></span>]
+            <span class="hljs-comment"><span class="hljs-comment"># update the score</span></span>
+            score += reward                                                      
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> done:
+                <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> score
+    <span class="hljs-keyword"><span class="hljs-keyword">except</span></span> Exception <span class="hljs-keyword"><span class="hljs-keyword">as</span></span> e:
+        print(<span class="hljs-string"><span class="hljs-string">"exception:"</span></span>, e)
+        <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> score</code></pre>
+</details>
+</dd>
+<dt id="DQN_Solution.dqn_train"><code class="name flex">
+<span>def <span class="ident">dqn_train</span></span>(<span>state_size, action_size, n_episodes=2000, max_t=400, eps_start=1.0, eps_end=0.001, eps_decay=0.995, seed=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Deep Q-Learning train function.</p>
+<h1 id="params">Params</h1>
+<pre><code class="hljs cs">n_episodes (<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>):   <span class="hljs-function"><span class="hljs-function">maximum number of training episodes
+</span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">max_t</span></span></span><span class="hljs-function"> (</span><span class="hljs-params"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span></span><span class="hljs-function">):        maximum number of timesteps per episode
+</span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">eps_start</span></span></span><span class="hljs-function"> (</span><span class="hljs-params"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">float</span></span></span></span></span><span class="hljs-function">):  starting </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">value</span></span></span><span class="hljs-function"> of epsilon, </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">for</span></span></span><span class="hljs-function"> epsilon-greedy action selection
+</span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">eps_end</span></span></span><span class="hljs-function"> (</span><span class="hljs-params"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">float</span></span></span></span></span><span class="hljs-function">):    minimum </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">value</span></span></span><span class="hljs-function"> of epsilon
+</span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">eps_decay</span></span></span><span class="hljs-function"> (</span><span class="hljs-params"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">float</span></span></span></span></span><span class="hljs-function">):  multiplicative </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">factor</span></span></span><span class="hljs-function"> (</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">per episode</span></span></span><span class="hljs-function">) </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">for</span></span></span><span class="hljs-function"> decreasing epsilon
+</span></span></code></pre></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python hljs"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">def</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">dqn_train</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(state_size: int,
+              action_size: int,
+              n_episodes: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">2000</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+              max_t: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">400</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+              eps_start: float = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">1.0</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+              eps_end: float = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">0.001</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+              eps_decay: float = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">0.995</span></span></span></span><span class="hljs-function"><span class="hljs-params">,
+              seed: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">0</span></span></span></span><span class="hljs-function"><span class="hljs-params">)</span></span></span><span class="hljs-function">:</span></span>
+    <span class="hljs-string"><span class="hljs-string">"""Deep Q-Learning train function.
+
+    Params
+    ======
+        n_episodes (int):   maximum number of training episodes
+        max_t (int):        maximum number of timesteps per episode
+        eps_start (float):  starting value of epsilon, for epsilon-greedy action selection
+        eps_end (float):    minimum value of epsilon
+        eps_decay (float):  multiplicative factor (per episode) for decreasing epsilon
+    """</span></span>
+    agent = Agent(state_size=state_size, action_size=action_size, seed=<span class="hljs-number"><span class="hljs-number">0</span></span>)
+    <span class="hljs-comment"><span class="hljs-comment"># list containing scores from each episode</span></span>
+    scores = []                                                                 
+    <span class="hljs-comment"><span class="hljs-comment"># last 100 scores</span></span>
+    scores_window = deque(maxlen=<span class="hljs-number"><span class="hljs-number">10</span></span>)                                           
+    <span class="hljs-comment"><span class="hljs-comment"># initialize epsilon</span></span>
+    eps = eps_start
+    
+    <span class="hljs-comment"><span class="hljs-comment"># create the counter instance</span></span>
+    count = SecondCounter()
+    count.start()
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> i_episode <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> range(<span class="hljs-number"><span class="hljs-number">1</span></span>, n_episodes+<span class="hljs-number"><span class="hljs-number">1</span></span>):
+        <span class="hljs-comment"><span class="hljs-comment"># reset the environment</span></span>
+        env_info = env.reset(train_mode=<span class="hljs-keyword"><span class="hljs-keyword">True</span></span>)[brain_name]                       
+        <span class="hljs-comment"><span class="hljs-comment"># get the current state</span></span>
+        state = env_info.vector_observations[<span class="hljs-number"><span class="hljs-number">0</span></span>]                                 
+        <span class="hljs-comment"><span class="hljs-comment"># initialize score            </span></span>
+        score = <span class="hljs-number"><span class="hljs-number">0</span></span>                                                               
+        <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> t <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> range(max_t):
+            <span class="hljs-comment"><span class="hljs-comment"># select an action</span></span>
+            action = agent.act(np.array(state),eps)                             
+            <span class="hljs-comment"><span class="hljs-comment"># cast action to int</span></span>
+            action = action.astype(int)
+            <span class="hljs-comment"><span class="hljs-comment"># send the action to the environment</span></span>
+            env_info = env.step(action)[brain_name]                             
+            <span class="hljs-comment"><span class="hljs-comment"># get the next state</span></span>
+            next_state = env_info.vector_observations[<span class="hljs-number"><span class="hljs-number">0</span></span>]                        
+            <span class="hljs-comment"><span class="hljs-comment"># get the reward</span></span>
+            reward = env_info.rewards[<span class="hljs-number"><span class="hljs-number">0</span></span>]                                        
+            <span class="hljs-comment"><span class="hljs-comment"># see if episode has finished</span></span>
+            done = env_info.local_done[<span class="hljs-number"><span class="hljs-number">0</span></span>]                                       
+            <span class="hljs-comment"><span class="hljs-comment"># send update step to agent</span></span>
+            agent.step(state,action,reward,next_state,done)                     
+            <span class="hljs-comment"><span class="hljs-comment"># update the score</span></span>
+            score += reward                                                     
+            <span class="hljs-comment"><span class="hljs-comment"># roll over the state to next time step</span></span>
+            state = next_state                                                  
+            <span class="hljs-comment"><span class="hljs-comment"># exit loop if episode finished</span></span>
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> done:                                                            
+                <span class="hljs-keyword"><span class="hljs-keyword">break</span></span>            
+            
+        <span class="hljs-comment"><span class="hljs-comment"># save score for 100 most recent scores</span></span>
+        scores_window.append(score)                                             
+        <span class="hljs-comment"><span class="hljs-comment"># save score for episodes</span></span>
+        scores.append(score)                                                    
+        eps = max(eps_end, eps_decay*eps) <span class="hljs-comment"><span class="hljs-comment"># decrease epsilon</span></span>
+        <span class="hljs-comment"><span class="hljs-comment"># print score every 10 episodes</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> i_episode % <span class="hljs-number"><span class="hljs-number">10</span></span>== <span class="hljs-number"><span class="hljs-number">0</span></span>:                                                  
+            print(<span class="hljs-string"><span class="hljs-string">'\rEpisode {}\tAverage Score of last 10 episodes: {:.2f}'</span></span>.format(i_episode, np.mean(scores_window)), end = <span class="hljs-string"><span class="hljs-string">''</span></span>)
+        <span class="hljs-comment"><span class="hljs-comment"># save network every 100 episodes</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> i_episode % <span class="hljs-number"><span class="hljs-number">100</span></span> == <span class="hljs-number"><span class="hljs-number">0</span></span>:                                                
+             torch.save(agent.qnetwork_local.state_dict(), <span class="hljs-string"><span class="hljs-string">'dqn_checkpoints/dqn_checkpoint_{:06d}.pth'</span></span>.format(i_episode))       
+    
+    seconds = count.finish()
+    print(<span class="hljs-string"><span class="hljs-string">'\nTraining finished with {} episodes in {:.2f} seconds'</span></span>.format(n_episodes, seconds))
+    torch.save(agent.qnetwork_local.state_dict(), <span class="hljs-string"><span class="hljs-string">'dqn_checkpoints/dqn_checkpoint_{:06d}.pth'</span></span>.format(n_episodes))
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> scores</code></pre>
+</details>
+</dd>
+<dt id="DQN_Solution.env_show_info"><code class="name flex">
+<span>def <span class="ident">env_show_info</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python hljs"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">def</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">env_show_info</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function">:</span></span>
+    <span class="hljs-comment"><span class="hljs-comment"># number of agents in the environment</span></span>
+    print(<span class="hljs-string"><span class="hljs-string">'Number of agents:'</span></span>, len(env_info.agents))
+    <span class="hljs-comment"><span class="hljs-comment"># number of actions</span></span>
+    print(<span class="hljs-string"><span class="hljs-string">'Number of actions:'</span></span>, action_size)
+    <span class="hljs-comment"><span class="hljs-comment"># examine the state space</span></span>
+    print(<span class="hljs-string"><span class="hljs-string">'States look like:'</span></span>, state)
+    print(<span class="hljs-string"><span class="hljs-string">'States have length:'</span></span>, state_size)    </code></pre>
+</details>
+</dd>
+<dt id="DQN_Solution.plot_3dsurface"><code class="name flex">
+<span>def <span class="ident">plot_3dsurface</span></span>(<span>X, Y, score_array)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Print 3D surface plot of DQN Agent analytics</p>
+<h1 id="params">Params</h1>
+<pre><code class="hljs css"><span class="hljs-selector-tag"><span class="hljs-selector-tag">X</span></span> (<span class="hljs-selector-tag"><span class="hljs-selector-tag">np</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.array</span></span>):           <span class="hljs-selector-tag"><span class="hljs-selector-tag">Meshgrid</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">X</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">Axis</span></span>
+<span class="hljs-selector-tag"><span class="hljs-selector-tag">Y</span></span> (<span class="hljs-selector-tag"><span class="hljs-selector-tag">np</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.array</span></span>):           <span class="hljs-selector-tag"><span class="hljs-selector-tag">Meshgrid</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">X</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">Axis</span></span>
+<span class="hljs-selector-tag"><span class="hljs-selector-tag">score_array</span></span> (<span class="hljs-selector-tag"><span class="hljs-selector-tag">np</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.array</span></span>)  <span class="hljs-selector-tag"><span class="hljs-selector-tag">scores</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">of</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">all</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">episodes</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">of</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">all</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">checkpoints</span></span>
+</code></pre></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python hljs"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">def</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">plot_3dsurface</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(X, Y, score_array)</span></span></span><span class="hljs-function">:</span></span>
+    <span class="hljs-string"><span class="hljs-string">"""Print 3D surface plot of DQN Agent analytics
+
+    Params
+    ======
+        X (np.array):           Meshgrid X Axis
+        Y (np.array):           Meshgrid X Axis
+        score_array (np.array)  scores of all episodes of all checkpoints
+    """</span></span>     
+    fig = plt.figure()
+    ax = fig.gca(projection=<span class="hljs-string"><span class="hljs-string">'3d'</span></span>)
+    <span class="hljs-comment"><span class="hljs-comment"># Plot the surface.</span></span>
+    surf = ax.plot_surface(X, Y, score_array, cmap=cm.coolwarm,
+                           linewidth=<span class="hljs-number"><span class="hljs-number">0</span></span>, antialiased=<span class="hljs-keyword"><span class="hljs-keyword">False</span></span>)
+
+    <span class="hljs-comment"><span class="hljs-comment"># Customize the z axis.</span></span>
+    ax.set_zlim(<span class="hljs-number"><span class="hljs-number">-2</span></span>, <span class="hljs-number"><span class="hljs-number">22</span></span>)
+    ax.zaxis.set_major_locator(LinearLocator(<span class="hljs-number"><span class="hljs-number">10</span></span>))
+    ax.zaxis.set_major_formatter(FormatStrFormatter(<span class="hljs-string"><span class="hljs-string">'%.02f'</span></span>))
+
+    <span class="hljs-comment"><span class="hljs-comment"># Add a color bar which maps values to colors.</span></span>
+    fig.colorbar(surf, shrink=<span class="hljs-number"><span class="hljs-number">0.5</span></span>, aspect=<span class="hljs-number"><span class="hljs-number">5</span></span>)
+
+    plt.show()</code></pre>
+</details>
+</dd>
+<dt id="DQN_Solution.plot_minmax"><code class="name flex">
+<span>def <span class="ident">plot_minmax</span></span>(<span>checkpoints, score_array, checkpoint_min=100, checkpoint_max=2100, goal_score=13)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Print min max plot of DQN Agent analytics</p>
+<h1 id="params">Params</h1>
+<pre><code class="hljs cs">checkpoints (np.array):           <span class="hljs-function"><span class="hljs-function">Array of checkpoints
+</span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">checkpoint_min</span></span></span><span class="hljs-function"> (</span><span class="hljs-params"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span></span><span class="hljs-function">):             Minimum Checkpoint </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">for</span></span></span><span class="hljs-function"> plot
+</span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">checkpoint_max</span></span></span><span class="hljs-function"> (</span><span class="hljs-params"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span></span><span class="hljs-function">):             Maximum Checkpoint </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">for</span></span></span><span class="hljs-function"> plot
+</span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">goal_score</span></span></span><span class="hljs-function"> (</span><span class="hljs-params"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">float</span></span></span></span></span><span class="hljs-function">):               Goal of score </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">for</span></span></span><span class="hljs-function"> DQN Agent
+</span></span></code></pre></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python hljs"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">def</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">plot_minmax</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(checkpoints, 
+                score_array, 
+                checkpoint_min: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">100</span></span></span></span><span class="hljs-function"><span class="hljs-params">, 
+                checkpoint_max: int = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">2100</span></span></span></span><span class="hljs-function"><span class="hljs-params">, 
+                goal_score: float = </span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-params"><span class="hljs-number">13</span></span></span></span><span class="hljs-function"><span class="hljs-params">)</span></span></span><span class="hljs-function">:</span></span>
+    <span class="hljs-string"><span class="hljs-string">"""Print min max plot of DQN Agent analytics
+
+    Params
+    ======
+        checkpoints (np.array):           Array of checkpoints
+        checkpoint_min (int):             Minimum Checkpoint for plot
+        checkpoint_max (int):             Maximum Checkpoint for plot
+        goal_score (float):               Goal of score for DQN Agent
+    """</span></span>   
+    
+    df = pd.DataFrame(columns=[<span class="hljs-string"><span class="hljs-string">'checkpoint'</span></span>, <span class="hljs-string"><span class="hljs-string">'min'</span></span>, <span class="hljs-string"><span class="hljs-string">'max'</span></span>, <span class="hljs-string"><span class="hljs-string">'mean'</span></span>])
+
+    row = <span class="hljs-number"><span class="hljs-number">0</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> i <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> checkpoints:
+        <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> j <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> score_array[row]:
+            df.loc[row] = [i] + list([np.min(score_array[row]),
+                                                       np.max(score_array[row]),
+                                                       np.mean(score_array[row])])
+        row += <span class="hljs-number"><span class="hljs-number">1</span></span>
+    ax  = df.plot(x=<span class="hljs-string"><span class="hljs-string">'checkpoint'</span></span>, y=<span class="hljs-string"><span class="hljs-string">'mean'</span></span>, c=<span class="hljs-string"><span class="hljs-string">'white'</span></span>)
+    plt.fill_between(x=<span class="hljs-string"><span class="hljs-string">'checkpoint'</span></span>,y1=<span class="hljs-string"><span class="hljs-string">'min'</span></span>,y2=<span class="hljs-string"><span class="hljs-string">'max'</span></span>, data=df)
+    x_coordinates = [checkpoint_min, checkpoint_max]
+    y_coordinates = [<span class="hljs-number"><span class="hljs-number">13</span></span>, <span class="hljs-number"><span class="hljs-number">13</span></span>]
+    plt.plot(x_coordinates, y_coordinates, color=<span class="hljs-string"><span class="hljs-string">'red'</span></span>)    
+    plt.show()</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="DQN_Solution.dqn_analytic_of_scores" href="#DQN_Solution.dqn_analytic_of_scores">dqn_analytic_of_scores</a></code></li>
+<li><code><a title="DQN_Solution.dqn_test" href="#DQN_Solution.dqn_test">dqn_test</a></code></li>
+<li><code><a title="DQN_Solution.dqn_train" href="#DQN_Solution.dqn_train">dqn_train</a></code></li>
+<li><code><a title="DQN_Solution.env_show_info" href="#DQN_Solution.env_show_info">env_show_info</a></code></li>
+<li><code><a title="DQN_Solution.plot_3dsurface" href="#DQN_Solution.plot_3dsurface">plot_3dsurface</a></code></li>
+<li><code><a title="DQN_Solution.plot_minmax" href="#DQN_Solution.plot_minmax">plot_minmax</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.2</a>.</p>
+</footer>
+<script src="DQN_Solution_api-Dateien/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+
+</body></html>
