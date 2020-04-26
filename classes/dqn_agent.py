@@ -1,5 +1,8 @@
 #!/usr/bin/python
 # coding: utf-8
+"""DQN implementation based on: 
+   Udacity and https://github.com/ucaiado/banana-rl/blob/master/drlnd/dqn_agent.py
+"""
 import numpy as np
 import random
 from collections import namedtuple, deque

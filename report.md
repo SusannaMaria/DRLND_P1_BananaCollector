@@ -3,9 +3,10 @@
 The goal of this project is to train an agent with deep reinforcement learning algorithms to be able to collect as many yellow bananas as possible in a large square world and avoid as many blue bananas as possible.
 
 # Implementation
-The focus of the implementation was on a normal DQN algorithm. Already during the training of more than 800 episodes, very good results above the required score of 13 were achieved.
+The focus of the implementation was on a normal DQN algorithm, the training and analytic code. Already during the training of more than 800 episodes with standard DQN, very good results above the required score of 13 were achieved.  
 
-To achieve a better understanding of the further development of the DQN with regard to reducing the overestimation of the Q-values by DDQN and the stronger influence of meaningful experiments by Priotized Experience Replay, I extended the solution with an Agent supporting finally DQN, Double DQN and Double DQN with prioritized experience replay.
+To achieve a better understanding of the further development of the DQN with regard to reducing the overestimation of the Q-values by DDQN and the stronger influence of meaningful experiments by Priotized Experience Replay, I extended the solution with an Agent supporting finally DQN, Double DQN and Double DQN with prioritized experience replay. Code was used from Udacity and https://github.com/ucaiado/banana-rl/blob/master/drlnd/dqn_agent.py. 
+
 
 ![](static/implementations.jpg)
 
