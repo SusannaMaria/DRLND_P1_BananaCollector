@@ -7,13 +7,19 @@ import numpy as np
 import pandas as pd
 from collections import deque
 import torch
-from dqn_agent import Agent
-from classes.utils import helper
+from classes.dqn_agent_2 import DQNAgent, DDQNAgent, DDQNPREAgent
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
 import matplotlib.pyplot as plt
 from matplotlib import cm
+from matplotlib.pyplot import imshow
+from drawnow import drawnow, figure
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
-from secondcounter import SecondCounter
+from classes.secondcounter import SecondCounter
+from enum import Enum
+class DQN_Method(Enum):
+    DQNAgent = 1
+    DDQNAgent = 2
+    DDQNPREAgent = 3
 
 env = UnityEnvironment(
     file_name="Banana_Windows_x86_64/Banana.exe")
@@ -27,6 +33,21 @@ env_info = env.reset(train_mode=True)[brain_name]
 action_size = brain.vector_action_space_size
 state = env_info.vector_observations[0]
 state_size = len(state)
+df = pd.DataFrame(columns=['episode', 'score', 'min', 'max', 'std', 'mean'])
+
+def draw_fig():
+    ax=df.plot(x='episode', y='mean', c='red')
+    fig.canvas.draw()
+    #imshow(ax)
+#    imshow(df, interpolation='nearest')
+    # plt.figure(1) 
+    # ax  = df.plot(x='episode', y='mean', c='white')
+    # plt.fill_between(x='epiosde',y1='min',y2='max', data=df)
+    # x_coordinates = [0, 100]
+    # y_coordinates = [13, 13]
+    # plt.plot(x_coordinates, y_coordinates, color='red')    
+    # plt.show()
+    # plt.pause(0.0001)
 
 def env_show_info():
     # number of agents in the environment
@@ -38,7 +59,9 @@ def env_show_info():
     print('States have length:', state_size)    
 
 
-def dqn_train(state_size: int,
+
+def dqn_train(dqn_method: DQN_Method,
+              state_size: int,
               action_size: int,
               n_episodes: int = 2000,
               max_t: int = 400,
@@ -50,22 +73,33 @@ def dqn_train(state_size: int,
 
     Params
     ======
-        state_size (int):   size of state space
-        action_size (int):  action numbers    
-        n_episodes (int):   maximum number of training episodes
-        max_t (int):        maximum number of timesteps per episode
-        eps_start (float):  starting value of epsilon, for epsilon-greedy action selection
-        eps_end (float):    minimum value of epsilon
-        eps_decay (float):  multiplicative factor (per episode) for decreasing epsilon
+        dqn_method (DQN_Method):    use of DQN Method
+        state_size (int):           size of state space
+        action_size (int):          action numbers    
+        n_episodes (int):           maximum number of training episodes
+        max_t (int):                maximum number of timesteps per episode
+        eps_start (float):          starting value of epsilon, for epsilon-greedy action selection
+        eps_end (float):            minimum value of epsilon
+        eps_decay (float):          multiplicative factor (per episode) for decreasing epsilon
     """
-    agent = Agent(state_size=state_size, action_size=action_size, seed=0)
+    
+    if dqn_method == DQN_Method.DDQNAgent:
+        agent = DDQNAgent(state_size=state_size, action_size=action_size, seed=222)
+    elif dqn_method == DQN_Method.DDQNPREAgent:
+        agent = DDQNPREAgent(state_size=state_size, action_size=action_size, seed=333)
+    else:
+        agent = DQNAgent(state_size=state_size, action_size=action_size, seed=111)
+    
     # list containing scores from each episode
     scores = []                                                                 
-    # last 100 scores
-    scores_window = deque(maxlen=10)                                           
+    # last 30 scores
+    scores_window = deque(maxlen=30)    
+    scores_std = []                    # List containing the std dev of the last 100 episodes
+    scores_avg = []                                             
     # initialize epsilon
     eps = eps_start
-    
+    plt.ion()
+    plt.show()
     # create the counter instance
     count = SecondCounter()
     count.start()
@@ -99,22 +133,32 @@ def dqn_train(state_size: int,
             if done:                                                            
                 break            
             
-        # save score for 100 most recent scores
-        scores_window.append(score)                                             
+        # save score for 30 most recent scores
+        scores_window.append(score)
         # save score for episodes
         scores.append(score)                                                    
+
+        df.loc[i_episode-1] = [i_episode] + list([score, np.min(scores_window),
+                                                  np.max(scores_window),
+                                                  np.std(scores_window),
+                                                  np.mean(scores_window)])
+        
+        drawnow(draw_fig, show_once=True)
+
         eps = max(eps_end, eps_decay*eps) # decrease epsilon
         # print score every 10 episodes
         if i_episode % 10== 0:                                                  
             print('\rEpisode {}\tAverage Score of last 10 episodes: {:.2f}'.format(i_episode, np.mean(scores_window)), end = '')
+            
         # save network every 100 episodes
         if i_episode % 100 == 0:                                                
-             torch.save(agent.qnetwork_local.state_dict(), 'dqn_checkpoints/dqn_checkpoint_{:06d}.pth'.format(i_episode))       
+             torch.save(agent.qnet.state_dict(), 'dqn_checkpoints/dqn_checkpoint_{:06d}.pth'.format(i_episode))       
     
     seconds = count.finish()
     print('\nTraining finished with {} episodes in {:.2f} seconds'.format(n_episodes, seconds))
-    torch.save(agent.qnetwork_local.state_dict(), 'dqn_checkpoints/dqn_checkpoint_{:06d}.pth'.format(n_episodes))
-    return scores
+    torch.save(agent.qnet.state_dict(), 'dqn_checkpoints/dqn_checkpoint_{:06d}.pth'.format(n_episodes))
+
+    return df
 
 
 def dqn_test(agent):
@@ -288,12 +332,8 @@ def plot_minmax(checkpoints,
     plt.show()
 
 
-# In[24]:
 
-
-# # Test of notebook
-# # Train 200 episodes
-# train_scores = dqn_train(state_size, action_size,200)
+train_scores = dqn_train(DQN_Method.DQNAgent, state_size, action_size,200)
 
 
 # # In[29]:
